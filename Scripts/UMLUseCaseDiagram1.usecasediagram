@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="228a51bb-c2af-47c4-a147-cbf6909b1aa0" name="UMLUseCaseDiagram1" linkedPackageId="73018722-1e5a-454b-8b61-1cee6bdf9e1c" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <profileInstances>
+    <packageHasProfileInstances Id="2d08ab24-672d-4ef3-b368-461c7bdead51">
+      <profileInstance Id="7208a412-a77f-4562-8081-90e21dcdae55" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="44566719-8cf8-46ca-aff1-f65282bab33c">
+      <profileInstance Id="430e3baf-5ef1-461a-a80d-b901e88f4997" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="92433253-dcee-402f-9070-58f8bdc19c58" name="Quản lý" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="2d759441-71e2-43cc-a66d-b2aae550fafc" />
+        <targetEnds>
+          <association Id="53a517cc-6097-48f9-a46b-62ad58cc6bb3" isDerived="false" sourceEndRoleName="Quản lý" targetEndRoleName="Tiếp nhận Bò Sữa" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="1cb19a2e-bfe0-47d4-a92f-347cb4358a66" LastKnownName="Tiếp nhận/phân loại Bò Sữa" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c49941f6-7de4-45ad-b8a8-fb5e1b69255a" name="Quản lý" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="688edefc-cfe3-412c-a93c-0a610981d2c4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="96b23b0c-945d-4a3a-8b68-9a806c1b5f46" name="Tiếp nhận Bò Sữa" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cd74f0ff-3947-4bf0-a2e0-ef00638bc112" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="743b0cf7-81eb-494d-b0f8-5345c5be24d2" />
+          </association>
+          <association Id="6c00aede-f573-4762-9095-100892d00464" isDerived="false" sourceEndRoleName="Quản lý" targetEndRoleName="Báo cáo thông kê cơ sở" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="d7d0d3b9-c64a-42ba-9f0e-2d983fe87abb" LastKnownName="Theo dõi báo cáo thông kê cơ sở" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f7c9a2b3-9fac-449c-bf5d-f1d3ddc95154" name="Quản lý" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="43985667-0a41-4f9a-8539-4c4d3cc84e66" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a1ba1b62-fe4d-49bb-af95-212e496dc4d1" name="Báo cáo thông kê cơ sở" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="22c7fa79-e98b-44c1-9015-7eb72578646f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="69228ca7-c2d5-4f1f-96f5-504f7a098f52" />
+          </association>
+          <association Id="1611bfdf-c073-438b-8605-a9b256413e15" isDerived="false" sourceEndRoleName="Quản lý" targetEndRoleName="Quản lý thông tin bò sữa hiện có" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="7eaad996-77a0-4dcd-80b2-8e1b59ab8f39" LastKnownName="Quản lý thông tin bò sữa hiện có" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b534db8b-ed7f-41b9-9da2-0da7d0d2d398" name="Quản lý" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="4477b91a-6e54-4f23-a5fe-e79e7ace7037" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="81ace1b6-13c8-418b-b6c2-0061f80d953f" name="Quản lý thông tin bò sữa hiện có" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d4d00885-e788-4085-892c-33a303c2ecbd" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ad3ff904-65ec-4ca8-8442-a2e5dcc6f360" />
+          </association>
+          <association Id="e4a348b8-e884-426b-a119-c3ae805114c3" isDerived="false" sourceEndRoleName="Quản lý" targetEndRoleName="Phân chia công việc" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="dd268444-faf3-4de1-a6d2-ab3e3120fd34" LastKnownName="Phân chia công việc" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f83b3147-d8ac-447d-9fdf-fb5e23699ef5" name="Quản lý" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a2ebc294-611f-46c6-bf90-4e0605549698" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="47963c56-d5eb-4561-91d5-810de7f73c75" name="Phân chia công việc" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="96e310c4-c044-4d5d-a0c6-6c0d3bf5c8b4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ada7c873-81a9-4284-819c-dcd1bb1c4f1d" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="1cb19a2e-bfe0-47d4-a92f-347cb4358a66" name="Tiếp nhận/phân loại Bò Sữa" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="881bfb5f-bf8d-4481-a778-1ba7d4510e30" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="f7c103be-7ccb-452e-a3c1-24233f5f0f0c" name="Nhân viên chăm sóc" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="92bf7203-a14e-4997-abf8-ae250790d8c0" />
+        <targetEnds>
+          <association Id="15d524ab-08c2-4854-b059-1579e35e808e" isDerived="false" sourceEndRoleName="Nhân viên chăm sóc" targetEndRoleName="Kiểm tra sức khỏe " isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="04e20695-d053-4022-a3ab-c0477c845a4c" LastKnownName="Chăm sóc sức khỏe bò" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="96e66b43-f09b-4aaf-9d7d-f5f61c9ecedf" name="Nhân viên chăm sóc" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f64304a9-eac0-4f39-8214-974e4a2e4276" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="427fafe9-1ef9-49b7-acb1-1d6fb9bb1f95" name="Kiểm tra sức khỏe " isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="305bab4e-8840-40e4-99b5-e983ef6107a0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f8769e47-c1f2-45d4-b54b-1496f52300b2" />
+          </association>
+          <association Id="2afd580c-dca8-45c5-8634-604a04d6d197" isDerived="false" sourceEndRoleName="Nhân viên chăm sóc" targetEndRoleName="Vắt sữa bò" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9b738b85-4a25-48b8-978b-306d516ee14e" LastKnownName="Vắt sữa bò" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ae807edd-22ad-4717-b234-2956a29cc5d3" name="Nhân viên chăm sóc" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f3307dca-c4af-4e6f-a7d2-1ac097f800b0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="10c8ddd8-6396-4d05-ab47-0ebffa67fc99" name="Vắt sữa bò" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cb466d02-3e8e-4f3c-8e67-433fb9e178be" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8676a8fb-0d5a-4c3d-8398-4123ccfc72a0" />
+          </association>
+          <association Id="7adb9ee0-03d7-4bd2-b397-f684e70816e6" isDerived="false" sourceEndRoleName="Nhân viên chăm sóc" targetEndRoleName="Theo dõi chuồng trại" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="b5d1c40a-eddf-49a9-9187-0561131057f0" LastKnownName="Theo dõi chuồng trại" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3b4e36f4-8e9f-40a4-b892-56c10a53acbf" name="Nhân viên chăm sóc" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9fd54077-d6c7-44c0-a0a9-c52988f6d218" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7ea2f94d-8999-4769-bb6d-ffe107317cd2" name="Theo dõi chuồng trại" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b2fbef60-b9ea-4530-b2cc-9df6c0d9e014" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d8efa83d-ad49-4d73-a47f-602566ff31de" />
+          </association>
+          <association Id="cee35cc5-6b43-4921-87e2-862fc5e3470f" isDerived="false" sourceEndRoleName="Nhân viên chăm sóc" targetEndRoleName="Theo dõi năng xuất sữa" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="4fc4dbd2-f38e-4a88-857a-d8640911fab0" LastKnownName="Theo dõi năng xuất sữa" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d9643e34-ec3a-40dd-a680-022cc09950dd" name="Nhân viên chăm sóc" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c4e2b524-40f9-468d-99e2-b9c05778da2d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b09b882f-241e-434c-9efa-a2a127c9de01" name="Theo dõi năng xuất sữa" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0eacfb9c-89bc-402f-aba9-66a85ffe39b4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0487e10d-8b66-4273-97dc-337ceef13fee" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="04e20695-d053-4022-a3ab-c0477c845a4c" name="Chăm sóc sức khỏe bò" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="3b6a5003-64df-4e74-9fea-6aaa07d69914" />
+        <extendedCases>
+          <extend Id="e987974a-a1c4-4439-81cb-43d82bfa44b0">
+            <useCaseMoniker Id="d7d0d3b9-c64a-42ba-9f0e-2d983fe87abb" LastKnownName="Theo dõi báo cáo thông kê cơ sở" />
+            <elementDefinition Id="c8f200a2-37d2-45bf-9954-df15357e96eb" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="9b738b85-4a25-48b8-978b-306d516ee14e" name="Vắt sữa bò" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="b3841be9-51b5-4bc5-94cb-8ab171209c7c" />
+        <extendedCases>
+          <extend Id="7c6c6d0b-311a-4fe2-a94f-e31bd1df7998">
+            <useCaseMoniker Id="d7d0d3b9-c64a-42ba-9f0e-2d983fe87abb" LastKnownName="Theo dõi báo cáo thông kê cơ sở" />
+            <elementDefinition Id="d816cb2a-a820-42d3-bcf0-9e59516e29e3" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="d7d0d3b9-c64a-42ba-9f0e-2d983fe87abb" name="Theo dõi báo cáo thông kê cơ sở" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7f175dd6-8f50-45d1-8036-f8df94f9a892" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="b5d1c40a-eddf-49a9-9187-0561131057f0" name="Theo dõi chuồng trại" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a39af730-dda3-46ba-97a2-111bebce436a" />
+        <extendedCases>
+          <extend Id="29fd3b35-e688-49b9-bbb5-56a00e79110a">
+            <useCaseMoniker Id="d7d0d3b9-c64a-42ba-9f0e-2d983fe87abb" LastKnownName="Theo dõi báo cáo thông kê cơ sở" />
+            <elementDefinition Id="82e063e1-8bf0-4bf8-8351-af22bb8b4bbe" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="4fc4dbd2-f38e-4a88-857a-d8640911fab0" name="Theo dõi năng xuất sữa" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="60402e02-4bd4-4444-8f60-11af8c060bc9" />
+        <extendedCases>
+          <extend Id="ca449e77-644c-4a2b-8b78-c391d3c389c9">
+            <useCaseMoniker Id="d7d0d3b9-c64a-42ba-9f0e-2d983fe87abb" LastKnownName="Theo dõi báo cáo thông kê cơ sở" />
+            <elementDefinition Id="9c9b7d9c-47ca-4c7a-8465-f99fd0f5b441" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="7eaad996-77a0-4dcd-80b2-8e1b59ab8f39" name="Quản lý thông tin bò sữa hiện có" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4c011b4b-e79e-4a93-b922-a8a1fd27e559" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="dd268444-faf3-4de1-a6d2-ab3e3120fd34" name="Phân chia công việc" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="27c3e019-2146-4cfd-b66b-5524b4a51939" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="73018722-1e5a-454b-8b61-1cee6bdf9e1c" name="DrinkSmile_nv">
+    <elementDefinition Id="81d0628f-58ad-4b97-8956-b0162508b8f1" />
+  </package>
+</useCaseModelRoot>
