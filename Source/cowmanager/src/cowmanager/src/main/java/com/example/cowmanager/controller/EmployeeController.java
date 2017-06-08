@@ -29,7 +29,7 @@ public class EmployeeController {
             resp.setData(employeeService.getAllEmployee());
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -43,7 +43,7 @@ public class EmployeeController {
             resp.setData(employeeService.addEmployeeProfile(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -57,7 +57,7 @@ public class EmployeeController {
             resp.setData(employeeService.getEmployeeProfile(maNv));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -71,7 +71,7 @@ public class EmployeeController {
             resp.setData(employeeService.updateEmployeeProfile(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -85,7 +85,7 @@ public class EmployeeController {
             resp.setData(employeeService.releaseEmployeeProfile(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }

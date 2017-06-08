@@ -41,7 +41,7 @@ public class CageController {
             resp.setData(cageService.createCage(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -55,7 +55,7 @@ public class CageController {
             resp.setData(cageService.updateCage(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -69,7 +69,7 @@ public class CageController {
             resp.setData(cageService.releaseCage(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -82,23 +82,22 @@ public class CageController {
         try {
             resp.setData(cageService.getById(maChuong));
         } catch (CowManagerException ex) {
-
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
 
     @RequestMapping(value = "/getCalendarCleaningToday", method = RequestMethod.GET)
     @ResponseBody
-    public RespData<List<CageLog>> getCleaningToday(@RequestParam(name = "maChuong", required = false) Integer maChuong) {
+    public RespData<List<CageLog>> getCleaningToday() {
         final RespData<List<CageLog>> resp = new RespData<List<CageLog>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
         try {
             resp.setData(cageService.calendarCleaningToday());
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }

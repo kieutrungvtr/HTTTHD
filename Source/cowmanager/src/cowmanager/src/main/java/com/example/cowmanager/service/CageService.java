@@ -34,7 +34,7 @@ public class CageService extends BaseService {
         List<CageEntity> entities = cageRepository.findAllOn();
         List<Cage> result = new ArrayList<>();
         for (CageEntity entity : entities) {
-            Cage cage = toCage(entity);
+            Cage cage = toCage2(entity);
             result.add(cage);
         }
         return result;
@@ -66,7 +66,7 @@ public class CageService extends BaseService {
         if (entity == null) {
             throw new CowManagerException("Khong the them vao db");
         } else {
-            return toCage(entity);
+            return toCage2(entity);
         }
     }
 
@@ -94,7 +94,7 @@ public class CageService extends BaseService {
         if (existedEntity == null) {
             throw new CowManagerException("Khong the cap nhat vao db");
         } else {
-            return toCage(existedEntity);
+            return toCage2(existedEntity);
         }
     }
 
@@ -112,7 +112,7 @@ public class CageService extends BaseService {
         cageProfile.setTrangThai(CowManagerConstants.EMPLOYEE_STATUS_OFF);
         cageProfile = cageRepository.save(cageProfile);
         if (cageProfile != null) {
-            return toCage(cageProfile);
+            return toCage2(cageProfile);
         } else {
             throw new CowManagerException("Cannot save to db");
         }

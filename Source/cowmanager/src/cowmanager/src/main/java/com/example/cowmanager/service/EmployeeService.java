@@ -2,9 +2,7 @@ package com.example.cowmanager.service;
 
 import com.example.cowmanager.entity.EmployeeEntity;
 import com.example.cowmanager.entity.RoleEmployeeEntity;
-import com.example.cowmanager.model.CowManagerException;
-import com.example.cowmanager.model.Employee;
-import com.example.cowmanager.model.EmployeeRequest;
+import com.example.cowmanager.model.*;
 import com.example.cowmanager.repository.EmployeeRepository;
 import com.example.cowmanager.repository.RoleEmployeeRepository;
 import com.example.cowmanager.util.CowManagerConstants;
@@ -32,7 +30,7 @@ public class EmployeeService extends BaseService {
         List<EmployeeEntity> entities = employeeRepository.findAllOn();
         List<Employee> result = new ArrayList<>();
         for (EmployeeEntity entity : entities) {
-            Employee employee = toEmployee(entity);
+            Employee employee = toEmployeeWithoutCowEntity(entity);
             result.add(employee);
         }
         return result;
@@ -47,7 +45,7 @@ public class EmployeeService extends BaseService {
         String boPhan = request.getBoPhan();
         Integer chucVu = request.getChucDanh();
         String ngaySinh = request.getNgaySinh();
-        Integer soDt = request.getSodt();
+        Integer soDt = request.getSoDt();
 
         if (TextUtils.isEmpty(name)) {
             throw new CowManagerException("Ten nhan vien khong dc trong");
@@ -68,7 +66,7 @@ public class EmployeeService extends BaseService {
             throw new CowManagerException("So dien thoai khong dc trong");
         }
         EmployeeEntity entity = toEmployeeEntity(request);
-        EmployeeEntity existedEntity = null;
+        EmployeeEntity existedEntity;
         Integer maNv = new Integer(0);
         do {
             maNv = new Integer(RandomGenerator.getIntRand());
@@ -77,8 +75,10 @@ public class EmployeeService extends BaseService {
         } while (null != existedEntity);
         // Get role of employee
         RoleEmployeeEntity roleEntity = roleRepository.findOne(chucVu);
-        entity.setMaNv(maNv);
         entity.setQuyen(roleEntity);
+        entity.setNgaySinh(ngaySinh);
+        entity.setBoPhan(boPhan);
+        entity.setMaNv(maNv);
         entity.setNgayTao(new Timestamp(System.currentTimeMillis()));
         entity.setTrangThai(CowManagerConstants.EMPLOYEE_STATUS_ON);
         entity = employeeRepository.save(entity);
@@ -105,7 +105,7 @@ public class EmployeeService extends BaseService {
         String boPhan = request.getBoPhan();
         Integer chucVu = request.getChucDanh();
         String ngaySinh = request.getNgaySinh();
-        Integer soDt = request.getSodt();
+        Integer soDt = request.getSoDt();
 
         if (!TextUtils.isEmpty(name)) {
             existedProfile.setTen(name);
@@ -169,4 +169,62 @@ public class EmployeeService extends BaseService {
         }
 
     }
+
+    //-------------------
+    //    ROLE EMPLOYEE
+    //-------------------
+
+    /**
+     * Register role
+     * @param roleRequest
+     * @return
+     * @throws CowManagerException
+     */
+    @Transactional(rollbackOn = CowManagerException.class)
+    public RoleEmployee registerRole(RoleRequest roleRequest) throws CowManagerException {
+        RoleEmployeeEntity entity = new RoleEmployeeEntity();
+        if(TextUtils.isEmpty(roleRequest.getTenQuyen())) {
+            throw new CowManagerException("Ten quyen khong duoc trong");
+        }
+        entity.setDescription(roleRequest.getTenQuyen());
+        entity = roleRepository.save(entity);
+        return toRole(entity);
+    }
+
+    /**
+     * Update role
+     * @param roleRequest
+     * @return
+     * @throws CowManagerException
+     */
+    @Transactional(rollbackOn = CowManagerException.class)
+    public RoleEmployee updateRole(RoleRequest roleRequest) throws CowManagerException {
+        RoleEmployeeEntity entity = roleRepository.findOne(roleRequest.getMaQuyen());
+        if (entity == null) {
+            throw new CowManagerException("Ma quyen khong ton tai");
+        }
+        if(TextUtils.isEmpty(roleRequest.getTenQuyen())) {
+            throw new CowManagerException("Ten quyen khong duoc trong");
+        }
+        entity.setDescription(roleRequest.getTenQuyen());
+        entity = roleRepository.save(entity);
+        return toRole(entity);
+    }
+
+    @Transactional(rollbackOn = CowManagerException.class)
+    public RoleEmployee deleteRole(RoleRequest roleRequest) throws CowManagerException {
+        RoleEmployeeEntity entity = roleRepository.findOne(roleRequest.getMaQuyen());
+        if (entity == null) {
+            throw new CowManagerException("Ma quyen khong ton tai");
+        }
+        roleRepository.delete(entity);
+        return toRole(entity);
+    }
+
+    public List<RoleEmployee> listRole() throws CowManagerException {
+        List<RoleEmployeeEntity> entities = roleRepository.findAll();
+        return convertToListRole(entities);
+    }
+
+
 }

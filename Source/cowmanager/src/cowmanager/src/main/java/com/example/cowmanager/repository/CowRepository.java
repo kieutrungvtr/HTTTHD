@@ -13,7 +13,7 @@ public class CowRepository extends RepositoryBase<CowEntity, Integer> {
 
     public List<CowEntity> findAllAvailable() {
         StringBuilder builder = new StringBuilder();
-        builder.append(" select c from CowEntity");
+        builder.append(" select c from CowEntity c");
         builder.append(" where c.trangThai != :trangThai");
         final Query query = getEntityManager().createQuery(builder.toString());
         query.setParameter("trangThai", CowManagerConstants.COW_STATUS_OFF);
@@ -22,7 +22,7 @@ public class CowRepository extends RepositoryBase<CowEntity, Integer> {
 
     public List<CowEntity> findAllByMaNv(Integer maNv) {
         StringBuilder builder = new StringBuilder();
-        builder.append(" select c from CowEntity");
+        builder.append(" select c from CowEntity c");
         builder.append(" where c.trangThai != :trangThai");
         builder.append(" and c.nhanVien.maNv = :maNv");
         final Query query = getEntityManager().createQuery(builder.toString());

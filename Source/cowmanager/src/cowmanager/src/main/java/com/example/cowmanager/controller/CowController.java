@@ -18,16 +18,30 @@ public class CowController {
     @Autowired
     private CowService cowService;
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ResponseBody
+    public RespData<List<Cow>> getListCow() {
+        final RespData<List<Cow>> resp = new RespData<>();
+        resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
+        try {
+            resp.setData(cowService.getListCow());
+        } catch (CowManagerException ex) {
+            resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
+            resp.setMessage(ex.getMessage());
+        }
+        return resp;
+    }
+
     @RequestMapping(value = "/listByMaNv", method = RequestMethod.POST)
     @ResponseBody
     public RespData<List<Cow>> getListCowByMaNv(@RequestBody CowRequest req) {
-        final RespData<List<Cow>> resp = new RespData<List<Cow>>();
+        final RespData<List<Cow>> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
         try {
             resp.setData(cowService.getListCow(req));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -41,7 +55,7 @@ public class CowController {
             resp.setData(cowService.addCowProfile(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -55,7 +69,7 @@ public class CowController {
             resp.setData(cowService.updateCowProfile(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -69,7 +83,7 @@ public class CowController {
             resp.setData(cowService.removeCowProfile(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -83,7 +97,7 @@ public class CowController {
             resp.setData(cowService.getMilk(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -97,7 +111,7 @@ public class CowController {
             resp.setData(cowService.checkHealth(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -111,7 +125,7 @@ public class CowController {
             resp.setData(cowService.getListCowByHealth(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -125,9 +139,22 @@ public class CowController {
             resp.setData(cowService.getListMilkGettingToday(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
 
+    @RequestMapping(value = "/checkHealthAllCow", method = RequestMethod.POST)
+    @ResponseBody
+    public RespData<Integer> getListCowByHealth() {
+        final RespData<Integer> resp = new RespData<>();
+        resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
+        try {
+            cowService.checkHealthAllCow();
+        } catch (CowManagerException ex) {
+            resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
+            resp.setMessage(ex.getMessage());
+        }
+        return resp;
+    }
 }

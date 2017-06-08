@@ -20,6 +20,9 @@ import java.util.List;
 public class CowService extends BaseService {
 
     @Autowired
+    private CageService cageService;
+
+    @Autowired
     private EmployeeRepository employRepository;
 
     @Autowired
@@ -37,20 +40,29 @@ public class CowService extends BaseService {
     @Autowired
     private MilkGettingRepository milkRepository;
 
+    public List<Cow> getListCow() throws CowManagerException {
+        List<CowEntity> entities = cowRepository.findAllAvailable();
+        return convertToListCow(entities);
+    }
+
     @Transactional(rollbackOn = CowManagerException.class)
-    public Cow  addCowProfile(CowRequest request) throws CowManagerException {
+    public Cow addCowProfile(CowRequest request) throws CowManagerException {
         String dacDiem = request.getDacDiem();
         Integer maNv = request.getMaNhanVien();
         Integer maChuong = request.getMaChuong();
         Integer maThietBi = request.getMaThietBi();
         if (TextUtils.isEmpty(dacDiem)) {
-            throw new CowManagerException("Dac diem nhan dang khong dc trong db");
+            throw new CowManagerException("Dac diem nhan dang khong dc trong");
+        }
+        if (request.getNgayNhap() == null) {
+            throw  new CowManagerException("Ngay nhap bo khong duoc trong");
         }
 
         CowEntity cowEntity = toCowEntity(request);
         cowEntity.setTrangThai(CowManagerConstants.COW_STATUS_ON);
         cowEntity.setNgayTao(new Timestamp(System.currentTimeMillis()));
         cowEntity.setNgayCapNhat(new Timestamp(System.currentTimeMillis()));
+
         if (maNv != null) {
             EmployeeEntity employeeEntity = employRepository.findOneByColumn("maNv", maNv);
             if (employeeEntity == null) {
@@ -76,8 +88,17 @@ public class CowService extends BaseService {
                 cowEntity.setThietBi(deviceEntity);
             }
         }
+
+        CowEntity existedEntity;
+        Integer maBo = new Integer(0);
+        do {
+            maBo = new Integer(RandomGenerator.getIntRand());
+            existedEntity = cowRepository
+                    .findOneByColumn("maBo", maBo);
+        } while (null != existedEntity);
+        cowEntity.setMaBo(maBo);
         cowEntity = cowRepository.save(cowEntity);
-        return toCow(cowEntity);
+        return toCow2(cowEntity);
     }
 
     @Transactional(rollbackOn = CowManagerException.class)
@@ -133,7 +154,7 @@ public class CowService extends BaseService {
             }
         }
         cowEntity = cowRepository.save(cowEntity);
-        return toCow(cowEntity);
+        return toCow2(cowEntity);
     }
 
     public Cow getCowById(Integer maBo) throws CowManagerException {
@@ -147,6 +168,7 @@ public class CowService extends BaseService {
     @Transactional(rollbackOn = CowManagerException.class)
     public MilkGetting getMilk(CowRequest request) throws CowManagerException {
         Integer maBo = request.getMaBo();
+
         if (maBo == null) {
             throw new CowManagerException("Ma bo khong ton tai");
         }
@@ -154,6 +176,20 @@ public class CowService extends BaseService {
         if (cowEntity == null) {
             throw new CowManagerException("Bo khong ton tai trong db");
         }
+        // Kiem tra bo da ton tai trong chua
+        if(cowEntity.getChuong() != null) {
+            cageService.cleanCage(cowEntity.getChuong().getMaChuong(), new Timestamp(System.currentTimeMillis()));
+        } else {
+            throw new CowManagerException("Bo chua duoc dua vao chuong");
+        }
+        // Kiem tra suc khoe
+        CowRequest healthRequest = new CowRequest();
+        healthRequest.setMaBo(maBo);
+        CowLog health = checkHealth(healthRequest);
+        if (health.getTinhTrang() == CowManagerConstants.COW_HEALTH_BAD) {
+            throw new CowManagerException("Bo suc khoe kem, ko the lay sua");
+        }
+
         MilkGettingEntity milkEntity = new MilkGettingEntity();
         milkEntity.setBo(cowEntity);
         milkEntity.setNangSuat((int) (Math.random() * 10));
@@ -240,7 +276,7 @@ public class CowService extends BaseService {
         }
         cowEntity.setThietBi(null);
         cowEntity = cowRepository.save(cowEntity);
-        return toCow(cowEntity);
+        return toCow2(cowEntity);
     }
 
     // Simulator check health all cow
@@ -298,7 +334,7 @@ public class CowService extends BaseService {
             List<CowLogEntity> logEntities = cowEntity.getTheoDoiSucKhoe();
             if (logEntities != null) {
                 for (CowLogEntity entity : logEntities) {
-                    if (req.getTinhTrangSucKhoe() == entity.getTinhTrang()) {
+                    if (req.getTinhTrangSucKhoe().equals(entity.getTinhTrang())) {
                         result.add(toCowLog(entity));
                     }
                 }

@@ -15,7 +15,7 @@ public class EmployeeRequest implements Serializable {
 
     private String ngaySinh;
 
-    private Integer sodt;
+    private Integer soDt;
 
     private String diaChi;
 
@@ -54,15 +54,15 @@ public class EmployeeRequest implements Serializable {
     /**
      * @return the sodt
      */
-    public Integer getSodt() {
-        return sodt;
+    public Integer getSoDt() {
+        return soDt;
     }
 
     /**
      * @param sodt the sodt to set
      */
-    public void setSodt(Integer sodt) {
-        this.sodt = sodt;
+    public void setSoDt(Integer soDt) {
+        this.soDt = soDt;
     }
 
     /**

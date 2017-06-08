@@ -58,7 +58,7 @@ public class DeviceController {
             resp.setData(deviceService.getListDeviceByCage(cageId));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -72,7 +72,7 @@ public class DeviceController {
             resp.setData(deviceService.addDevice(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -86,7 +86,7 @@ public class DeviceController {
             resp.setData(deviceService.updateDevice(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }
@@ -100,7 +100,7 @@ public class DeviceController {
             resp.setData(deviceService.removeDevice(request));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
-            resp.setMessage(ex.getCause().getMessage());
+            resp.setMessage(ex.getMessage());
         }
         return resp;
     }

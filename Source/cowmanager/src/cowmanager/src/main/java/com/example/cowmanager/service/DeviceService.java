@@ -67,30 +67,35 @@ public class DeviceService extends BaseService {
             throw new CowManagerException("Nha cung cap khong dc rong");
         }
         if (tinhTrang == null) {
-            tinhTrang = CowManagerConstants.DEVICE_STATUS_GOOD;
+            request.setTinhTrang(CowManagerConstants.DEVICE_STATUS_GOOD);
         }
         DeviceEntity entity = toDeviceEntity(request);
-        DeviceEntity existedEntity = null;
+        DeviceEntity existedEntity;
+        Integer maTB = new Integer(0);
+        do {
+            maTB = new Integer(RandomGenerator.getIntRand());
+            existedEntity = deviceRepository
+                    .findOneByColumn("maTb", maTB);
+        } while (null != existedEntity);
+
+        entity.setMaTb(maTB);
+        entity.setBo(registerCowToDevice(maBo));
+        entity.setNgayNhap(new Timestamp(System.currentTimeMillis()));
+        entity.setNgayTao(new Timestamp(System.currentTimeMillis()));
+        entity = deviceRepository.save(entity);
+        return toDevice(entity);
+    }
+
+    private CowEntity registerCowToDevice(Integer maBo) throws CowManagerException {
         if (maBo != null) {
             CowEntity cowEntity = cowRepository.findOneByColumn("maBo", maBo);
             if (cowEntity == null) {
                 throw new CowManagerException("Ma bo khong ton tai trong db");
             } else {
-                entity.setBo(cowEntity);
+                return cowEntity;
             }
         }
-
-        Integer maTb = new Integer(0);
-        do {
-            maTb = new Integer(RandomGenerator.getIntRand());
-            existedEntity = deviceRepository
-                    .findOneByColumn("maTb", maTb);
-        } while (null != existedEntity);
-        entity.setMaTb(maTb);
-        entity.setNgayNhap(new Timestamp(System.currentTimeMillis()));
-        entity.setNgayTao(new Timestamp(System.currentTimeMillis()));
-        entity = deviceRepository.save(entity);
-        return toDevice(entity);
+        return null;
     }
 
     @Transactional(rollbackOn = CowManagerException.class)

@@ -16,25 +16,56 @@ public class BaseService {
         entity.setBoPhan(request.getBoPhan());
         entity.setDiaChi(request.getDiaChi());
         entity.setNgayCapNhat(new Timestamp(System.currentTimeMillis()));
-        entity.setSoDt(request.getSodt());
+        entity.setSoDt(request.getSoDt());
         entity.setTen(request.getTenNv());
         return entity;
     }
 
-    protected Employee toEmployee(EmployeeEntity entity) {
-        Employee result = new Employee();
-        result.setMaNv(entity.getMaNv());
-        result.setChucDanh(toRole(entity.getQuyen()));
-        result.setNgaySinh(entity.getNgaySinh());
-        result.setSoDt(entity.getSoDt());
-        result.setTenNv(entity.getTen());
-        result.setDanhSachBo(convertToListCow(entity.getDanhSachBo()));
-        return result;
+    protected Employee toEmployeeWithoutCowEntity(EmployeeEntity entity) throws CowManagerException {
+        try {
+            Employee result = new Employee();
+            result.setMaNv(entity.getMaNv());
+            result.setChucDanh(toRole(entity.getQuyen()));
+            result.setNgaySinh(entity.getNgaySinh());
+            result.setSoDt(entity.getSoDt());
+            result.setTenNv(entity.getTen());
+            return result;
+        } catch (Exception ex) {
+            throw new CowManagerException("Vui long khoi tao bang quyen (role)");
+        }
+    }
+
+    protected Employee toEmployee(EmployeeEntity entity) throws CowManagerException {
+        try {
+            Employee result = new Employee();
+            result.setMaNv(entity.getMaNv());
+            result.setChucDanh(toRole(entity.getQuyen()));
+            result.setNgaySinh(entity.getNgaySinh());
+            result.setSoDt(entity.getSoDt());
+            result.setTenNv(entity.getTen());
+            result.setDanhSachBo(convertToListCow(entity.getDanhSachBo()));
+            return result;
+        } catch (Exception ex) {
+            throw new CowManagerException("Vui long khoi tao bang quyen (role)");
+        }
     }
 
     protected Cage toCage(CageEntity entity) {
         Cage cage = new Cage();
         cage.setDanhSachBo(convertToListCow(entity.getDanhSachBo()));
+        cage.setGioiHan(entity.getGioiHan());
+        cage.setLichDon(convertToCalendarCleaning(entity.getLichDon()));
+        cage.setMaChuong(entity.getMaChuong());
+        cage.setNgayCapNhat(entity.getNgayCapNhat());
+        cage.setNgayTao(entity.getNgayTao());
+        cage.setTrangThai(entity.getTrangThai());
+        cage.setViTri(entity.getViTri());
+        return cage;
+    }
+
+    protected Cage toCage2(CageEntity entity) {
+        Cage cage = new Cage();
+//        cage.setDanhSachBo(convertToListCow(entity.getDanhSachBo()));
         cage.setGioiHan(entity.getGioiHan());
         cage.setLichDon(convertToCalendarCleaning(entity.getLichDon()));
         cage.setMaChuong(entity.getMaChuong());
@@ -66,6 +97,29 @@ public class BaseService {
 
     protected Cow toCow(CowEntity entity) {
         Cow cow = new Cow();
+        cow.setBenhTat(entity.getBenhTat());
+        if (entity.getChuong() != null) {
+            cow.setChuong(toCage(entity.getChuong()));
+        }
+        cow.setDacDiem(entity.getDacDiem());
+        if (entity.getTheoDoiSucKhoe() != null) {
+            cow.setLichChamSocSucKhoe(convertToListCowLog(entity.getTheoDoiSucKhoe()));
+        }
+        if (entity.getLichVatSua() != null ) {
+            cow.setLichVatSua(convertToListMilk(entity.getLichVatSua()));
+        }
+        cow.setMaBo(entity.getMaBo());
+        cow.setNgayNhap(entity.getNgayNhap());
+        if (entity.getNhanVien() != null) {
+            try {
+                cow.setNhanVien(toEmployee(entity.getNhanVien()));
+            } catch (CowManagerException e) {
+                e.printStackTrace();
+            }
+        }
+        if (entity.getChuong() != null) {
+            cow.setChuong(toCage(entity.getChuong()));
+        }
         return cow;
     }
 
@@ -121,7 +175,7 @@ public class BaseService {
         }
         List<Cow> listCow = new ArrayList<>();
         for (CowEntity entity : entities) {
-            Cow cow = toCow(entity);
+            Cow cow = toCow2(entity);
             listCow.add(cow);
         }
         return listCow;
@@ -138,7 +192,7 @@ public class BaseService {
 
     protected CowLog toCowLog(CowLogEntity entity) {
         CowLog cowLog = new CowLog();
-        cowLog.setBo(toCow(entity.getBo()));
+        cowLog.setBo(toCow2(entity.getBo()));
         cowLog.setCanNang(entity.getCanNang());
         cowLog.setChatBeo(entity.getChatBeo());
         cowLog.setNgayCapNhat(entity.getNgayCapNhat());
@@ -151,12 +205,24 @@ public class BaseService {
 
     protected MilkGetting toMilkGetting(MilkGettingEntity entity) {
         MilkGetting result = new MilkGetting();
-        result.setBo(toCow(entity.getBo()));
+        result.setBo(toCow2(entity.getBo()));
         result.setNangSuat(entity.getNangSuat());
         result.setNgayNhap(entity.getNgayNhap());
         result.setNgayTao(entity.getNgayTao());
         result.setNgayVatSua(entity.getNgayVatSua());
         return result;
+    }
+
+    protected Cow toCow2(CowEntity entity) {
+        Cow cow = new Cow();
+        cow.setBenhTat(entity.getBenhTat());
+        if (entity.getChuong() != null) {
+            cow.setChuong(toCage2(entity.getChuong()));
+        }
+        cow.setDacDiem(entity.getDacDiem());
+        cow.setMaBo(entity.getMaBo());
+        cow.setNgayNhap(entity.getNgayNhap());
+        return cow;
     }
 
     protected List<MilkGetting> convertToListMilk(List<MilkGettingEntity> entities) {
@@ -183,4 +249,11 @@ public class BaseService {
         return result;
     }
 
+    protected List<RoleEmployee> convertToListRole(List<RoleEmployeeEntity> entities) {
+        List<RoleEmployee> result = new ArrayList<>();
+        for (RoleEmployeeEntity entity: entities) {
+            result.add(toRole(entity));
+        }
+        return result;
+    }
 }
