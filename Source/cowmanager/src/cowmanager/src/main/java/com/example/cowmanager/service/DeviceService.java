@@ -10,6 +10,7 @@ import com.example.cowmanager.repository.CageRepository;
 import com.example.cowmanager.repository.CowRepository;
 import com.example.cowmanager.repository.DeviceRepository;
 import com.example.cowmanager.util.CowManagerConstants;
+import com.example.cowmanager.util.RandomGenerator;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,7 @@ public class DeviceService extends BaseService {
             tinhTrang = CowManagerConstants.DEVICE_STATUS_GOOD;
         }
         DeviceEntity entity = toDeviceEntity(request);
+        DeviceEntity existedEntity = null;
         if (maBo != null) {
             CowEntity cowEntity = cowRepository.findOneByColumn("maBo", maBo);
             if (cowEntity == null) {
@@ -77,6 +79,14 @@ public class DeviceService extends BaseService {
                 entity.setBo(cowEntity);
             }
         }
+
+        Integer maTb = new Integer(0);
+        do {
+            maTb = new Integer(RandomGenerator.getIntRand());
+            existedEntity = deviceRepository
+                    .findOneByColumn("maTb", maTb);
+        } while (null != existedEntity);
+        entity.setMaTb(maTb);
         entity.setNgayNhap(new Timestamp(System.currentTimeMillis()));
         entity.setNgayTao(new Timestamp(System.currentTimeMillis()));
         entity = deviceRepository.save(entity);

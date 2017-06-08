@@ -77,6 +77,7 @@ public class EmployeeService extends BaseService {
         } while (null != existedEntity);
         // Get role of employee
         RoleEmployeeEntity roleEntity = roleRepository.findOne(chucVu);
+        entity.setMaNv(maNv);
         entity.setQuyen(roleEntity);
         entity.setNgayTao(new Timestamp(System.currentTimeMillis()));
         entity.setTrangThai(CowManagerConstants.EMPLOYEE_STATUS_ON);

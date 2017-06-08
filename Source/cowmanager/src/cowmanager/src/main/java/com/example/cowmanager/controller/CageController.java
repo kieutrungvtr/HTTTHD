@@ -82,6 +82,7 @@ public class CageController {
         try {
             resp.setData(cageService.getById(maChuong));
         } catch (CowManagerException ex) {
+
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
             resp.setMessage(ex.getCause().getMessage());
         }

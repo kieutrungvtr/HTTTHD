@@ -38,13 +38,13 @@ public class CowService extends BaseService {
     private MilkGettingRepository milkRepository;
 
     @Transactional(rollbackOn = CowManagerException.class)
-    public Cow addCowProfile(CowRequest request) throws CowManagerException {
+    public Cow  addCowProfile(CowRequest request) throws CowManagerException {
         String dacDiem = request.getDacDiem();
         Integer maNv = request.getMaNhanVien();
         Integer maChuong = request.getMaChuong();
         Integer maThietBi = request.getMaThietBi();
         if (TextUtils.isEmpty(dacDiem)) {
-            throw new CowManagerException("Dac diem nhan dang khong dc trong");
+            throw new CowManagerException("Dac diem nhan dang khong dc trong db");
         }
 
         CowEntity cowEntity = toCowEntity(request);
