@@ -17,7 +17,10 @@ public class MilkGettingRepository extends RepositoryBase<MilkGettingEntity, Int
         builder.append(" SELECT e ");
         builder.append(" FROM MilkGettingEntity e ");
         builder.append(" WHERE e.ngayVatSua between ");
-        builder.append(" ( " + startTime + " , " + endTime + ")");
+//        builder.append(" ( " + startTime + " , " + endTime + ")");
+//        builder.append(" UNIX_TIMESTAMP(" + startTime + ") AND UNIX_TIMESTAMP(" + endTime + ") ");
+//        builder.append(startTime + " AND " + endTime);
+        builder.append(" '" + startTime + "' AND '" + endTime + "'");
         final Query query = getEntityManager().createQuery(builder.toString());
         return query.getResultList();
     }
