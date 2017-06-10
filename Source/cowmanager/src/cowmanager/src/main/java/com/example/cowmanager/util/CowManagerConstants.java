@@ -12,7 +12,7 @@ public class CowManagerConstants {
     /**
      *
      */
-    public static final int ROLE_MANAGER = 0;
+    public static final int ROLE_MANAGER = 1;
     /**
      *
      */

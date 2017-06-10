@@ -347,4 +347,5 @@ public class CowService extends BaseService {
         }
         return result;
     }
+
 }
