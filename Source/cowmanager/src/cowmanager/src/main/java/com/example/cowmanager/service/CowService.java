@@ -200,6 +200,11 @@ public class CowService extends BaseService {
         return toMilkGetting(milkEntity);
     }
 
+    public List<MilkGetting> getListMilkTimeRange(Timestamp startTime, Timestamp endTime) throws CowManagerException {
+        List<MilkGettingEntity> entities = milkRepository.findAllToday(startTime, endTime);
+        return convertToListMilk(entities);
+    }
+    
     @Transactional(rollbackOn = CowManagerException.class)
     public List<MilkGetting> getListMilkGettingToday(CowRequest request) throws CowManagerException {
         Integer maBo = request.getMaBo();
@@ -342,5 +347,4 @@ public class CowService extends BaseService {
         }
         return result;
     }
-
 }

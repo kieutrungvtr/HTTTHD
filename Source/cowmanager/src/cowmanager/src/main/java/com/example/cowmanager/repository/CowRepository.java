@@ -31,4 +31,11 @@ public class CowRepository extends RepositoryBase<CowEntity, Integer> {
         return query.getResultList();
     }
 
+    public List<CowEntity> findAll() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(" select c from CowEntity c");
+        final Query query = getEntityManager().createQuery(builder.toString());
+        return query.getResultList();
+    }
+
 }

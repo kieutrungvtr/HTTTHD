@@ -6,6 +6,7 @@ import com.example.cowmanager.util.CowManagerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -137,6 +138,31 @@ public class CowController {
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
         try {
             resp.setData(cowService.getListMilkGettingToday(request));
+        } catch (CowManagerException ex) {
+            resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
+            resp.setMessage(ex.getMessage());
+        }
+        return resp;
+    }
+
+    @RequestMapping(value = "/reportMilkTimeRange", method = RequestMethod.GET)
+    @ResponseBody
+    public RespData<List<MilkGetting>> getReportMilkToday(
+            @RequestParam(name = "startDate", required = true) Long startDate,
+            @RequestParam(name = "endDate", required = true) Long endDate) {
+        final RespData<List<MilkGetting>> resp = new RespData<List<MilkGetting>>();
+        resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
+        try {
+            Timestamp startTime = null;
+            Timestamp endTime = null;
+            // Convert date to timestamp (seconds to miliseconds)
+            if (startDate != null) {
+                startTime = new Timestamp(startDate * 1000);
+            }
+            if (endDate != null) {
+                endTime = new Timestamp(endDate * 1000);
+            }
+            resp.setData(cowService.getListMilkTimeRange(startTime, endTime));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
             resp.setMessage(ex.getMessage());
