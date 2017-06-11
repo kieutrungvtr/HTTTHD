@@ -20,7 +20,6 @@ public class CowController {
     private CowService cowService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<Cow>> getListCow() {
         final RespData<List<Cow>> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -34,7 +33,6 @@ public class CowController {
     }
 
     @RequestMapping(value = "/listByMaNv", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<List<Cow>> getListCowByMaNv(@RequestBody CowRequest req) {
         final RespData<List<Cow>> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -48,7 +46,6 @@ public class CowController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Cow> addCow(@RequestBody CowRequest request) {
         final RespData<Cow> resp = new RespData<Cow>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -62,7 +59,6 @@ public class CowController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Cow> updateEmployee(@RequestBody CowRequest request) {
         final RespData<Cow> resp = new RespData<Cow>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -76,7 +72,6 @@ public class CowController {
     }
 
     @RequestMapping(value = "/release", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Cow> releaseEmployee(@RequestBody CowRequest request) {
         final RespData<Cow> resp = new RespData<Cow>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -104,7 +99,6 @@ public class CowController {
     }
 
     @RequestMapping(value = "/checkHealth", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<CowLog> checkHealth(@RequestBody CowRequest request) {
         final RespData<CowLog> resp = new RespData<CowLog>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -118,7 +112,6 @@ public class CowController {
     }
 
     @RequestMapping(value = "/getListCowByHealth", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<List<CowLog>> getListCowByHealth(@RequestBody CowRequest request) {
         final RespData<List<CowLog>> resp = new RespData<List<CowLog>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -131,13 +124,12 @@ public class CowController {
         return resp;
     }
 
-    @RequestMapping(value = "/reportMilkToday", method = RequestMethod.POST)
-    @ResponseBody
-    public RespData<List<MilkGetting>> getReportMilkToday(@RequestBody CowRequest request) {
-        final RespData<List<MilkGetting>> resp = new RespData<List<MilkGetting>>();
+    @RequestMapping(value = "/reportMilkToday", method = RequestMethod.GET)
+    public RespData<List<MilkGetting>> getReportMilkToday() {
+        final RespData<List<MilkGetting>> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
         try {
-            resp.setData(cowService.getListMilkGettingToday(request));
+            resp.setData(cowService.getListMilkGettingToday());
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
             resp.setMessage(ex.getMessage());
@@ -146,10 +138,9 @@ public class CowController {
     }
 
     @RequestMapping(value = "/reportMilkTimeRange", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<MilkGetting>> getReportMilkToday(
-            @RequestParam(name = "startDate", required = true) Long startDate,
-            @RequestParam(name = "endDate", required = true) Long endDate) {
+            @RequestParam(name = "startDate", required = false) Long startDate,
+            @RequestParam(name = "endDate", required = false) Long endDate) {
         final RespData<List<MilkGetting>> resp = new RespData<List<MilkGetting>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
         try {
@@ -171,12 +162,24 @@ public class CowController {
     }
 
     @RequestMapping(value = "/checkHealthAllCow", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Integer> getListCowByHealth() {
         final RespData<Integer> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
         try {
             cowService.checkHealthAllCow();
+        } catch (CowManagerException ex) {
+            resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
+            resp.setMessage(ex.getMessage());
+        }
+        return resp;
+    }
+
+    @RequestMapping(value = "/getMilkAllCow", method = RequestMethod.POST)
+    public RespData<List<MilkGetting>> getMilkAllCow(CowRequest request) {
+        final RespData<List<MilkGetting>> resp = new RespData<>();
+        resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
+        try {
+            resp.setData(cowService.getMilkAllCow(request.getMaNhanVien()));
         } catch (CowManagerException ex) {
             resp.setResult(CowManagerConstants.COW_MANAGER_FAIL);
             resp.setMessage(ex.getMessage());

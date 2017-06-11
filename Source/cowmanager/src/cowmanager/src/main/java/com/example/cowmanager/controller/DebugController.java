@@ -18,7 +18,6 @@ public class DebugController {
     private EmployeeService employeeService;
 
     @RequestMapping(value = "/role/add", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<RoleEmployee> addRoleEmployee(@RequestBody RoleRequest roleRequest) {
         final RespData<RoleEmployee> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -32,7 +31,6 @@ public class DebugController {
     }
 
     @RequestMapping(value = "/role/update", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<RoleEmployee> updateRoleEmployee(@RequestBody RoleRequest roleRequest) {
         final RespData<RoleEmployee> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -46,7 +44,6 @@ public class DebugController {
     }
 
     @RequestMapping(value = "/role/release", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<RoleEmployee> deleteRoleEmployee(@RequestBody RoleRequest roleRequest) {
         final RespData<RoleEmployee> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -60,7 +57,6 @@ public class DebugController {
     }
 
     @RequestMapping(value = "/role/list", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<RoleEmployee>> listRoleEmployee() {
         final RespData<List<RoleEmployee>> resp = new RespData<>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);

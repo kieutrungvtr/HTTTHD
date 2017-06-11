@@ -16,7 +16,7 @@ public class CageLogRepository extends RepositoryBase<CageLogEntity, Integer> {
         builder.append(" SELECT e ");
         builder.append(" FROM CageLogEntity e ");
         builder.append(" WHERE e.ngayDon between ");
-        builder.append(" '" + startTime + "' AND '" + endTime + "'");
+        builder.append(" ( " + startTime + " , " + endTime + ")");
         final Query query = getEntityManager().createQuery(builder.toString());
         return query.getResultList();
     }

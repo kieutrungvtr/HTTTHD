@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Logger;
 
 @Service
 public class CowService extends BaseService {
@@ -201,33 +199,55 @@ public class CowService extends BaseService {
     }
 
     public List<MilkGetting> getListMilkTimeRange(Timestamp startTime, Timestamp endTime) throws CowManagerException {
+        // Get report a month
+        if (startTime == null && endTime == null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date(System.currentTimeMillis()));
+            calendar.add(Calendar.MONTH, -1);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            startTime = new Timestamp(calendar.getTimeInMillis());
+            endTime = new Timestamp(System.currentTimeMillis());
+        }
         List<MilkGettingEntity> entities = milkRepository.findAllToday(startTime, endTime);
-        return convertToListMilk(entities);
+        HashMap<CowEntity, MilkGettingEntity> hashCow = new HashMap<>();
+        for (MilkGettingEntity entity: entities) {
+            MilkGettingEntity data = hashCow.putIfAbsent(entity.getBo(), entity);
+            //Exist
+            if (data == null) {
+                hashCow.get(entity.getBo()).setNangSuat(entity.getNangSuat());
+            }
+        }
+        List<MilkGettingEntity> result = new ArrayList<>(hashCow.values());
+        return convertToListMilk(result);
     }
     
     @Transactional(rollbackOn = CowManagerException.class)
-    public List<MilkGetting> getListMilkGettingToday(CowRequest request) throws CowManagerException {
-        Integer maBo = request.getMaBo();
-        if (maBo == null) {
-            throw new CowManagerException("Ma bo khong ton tai");
-        }
-        CowEntity cowEntity = cowRepository.findOneByColumn("maBo", maBo);
-        if (cowEntity == null) {
-            throw new CowManagerException("Bo khong ton tai trong db");
-        }
-        Timestamp timeStart, timeEnd;
+    public List<MilkGetting> getListMilkGettingToday() throws CowManagerException {
+        Timestamp startTime, endTime;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(System.currentTimeMillis()));
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        timeStart = new Timestamp(calendar.getTimeInMillis());
+        startTime = new Timestamp(calendar.getTimeInMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
-        timeEnd = new Timestamp(calendar.getTimeInMillis());
-        List<MilkGettingEntity> entities = milkRepository.findAllToday(timeStart, timeEnd);
-        return convertToListMilk(entities);
+        endTime = new Timestamp(calendar.getTimeInMillis());
+
+        List<MilkGettingEntity> entities = milkRepository.findAllToday(startTime, endTime);
+        HashMap<CowEntity, MilkGettingEntity> hashCow = new HashMap<>();
+        for (MilkGettingEntity entity: entities) {
+            MilkGettingEntity data = hashCow.putIfAbsent(entity.getBo(), entity);
+            //Exist
+            if (data == null) {
+                hashCow.get(entity.getBo()).setNangSuat(entity.getNangSuat());
+            }
+        }
+        List<MilkGettingEntity> result = new ArrayList<>(hashCow.values());
+        return convertToListMilk(result);
     }
 
     @Transactional(rollbackOn = CowManagerException.class)
@@ -346,6 +366,40 @@ public class CowService extends BaseService {
             }
         }
         return result;
+    }
+
+    @Transactional(rollbackOn = CowManagerException.class)
+    public List<MilkGetting> getMilkAllCow(Integer maNhanVien) throws CowManagerException {
+        List<MilkGettingEntity> resultEntity = new ArrayList<>();
+        List<CowEntity> cowEntities;
+        if (maNhanVien == null) {
+            cowEntities = cowRepository.findAllAvailable();
+        } else {
+            // Get milk by maNv
+            cowEntities = cowRepository.findAllByMaNv(maNhanVien);
+        }
+        for (CowEntity cowEntity: cowEntities) {
+            if (cowEntity.getChuong() != null) {
+                cageService.cleanCage(cowEntity.getChuong().getMaChuong(), new Timestamp(System.currentTimeMillis()));
+                // Kiem tra suc khoe
+                CowRequest healthRequest = new CowRequest();
+                healthRequest.setMaBo(cowEntity.getMaBo());
+                CowLog health = checkHealth(healthRequest);
+                if (health.getTinhTrang() != CowManagerConstants.COW_HEALTH_BAD) {
+                    MilkGettingEntity milkEntity = new MilkGettingEntity();
+                    milkEntity.setBo(cowEntity);
+                    milkEntity.setNangSuat((int) (Math.random() * 10));
+                    milkEntity.setNgayNhap(new Timestamp(System.currentTimeMillis()));
+                    milkEntity.setNgayTao(new Timestamp(System.currentTimeMillis()));
+                    milkEntity.setNgayVatSua(new Timestamp(System.currentTimeMillis()));
+                    milkEntity = milkRepository.save(milkEntity);
+                    if (milkEntity != null) {
+                        resultEntity.add(milkEntity);
+                    }
+                }
+            }
+        }
+        return convertToListMilk(resultEntity);
     }
 
 }

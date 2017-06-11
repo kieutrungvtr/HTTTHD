@@ -21,7 +21,6 @@ public class DeviceController {
     private DeviceService deviceService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<Device>> getListDevice() {
         final RespData<List<Device>> resp = new RespData<List<Device>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -35,7 +34,6 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/listAvailable", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<Device>> getListDeviceAvailable() {
         final RespData<List<Device>> resp = new RespData<List<Device>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -49,7 +47,6 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/listByCageId", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<Device>> getListDeviceByCage(
             @RequestParam(name = "maChuong", required = false) Integer cageId) {
         final RespData<List<Device>> resp = new RespData<List<Device>>();
@@ -64,7 +61,6 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Device> addDevice(@RequestBody DeviceRequest request) {
         final RespData<Device> resp = new RespData<Device>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -78,7 +74,6 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Device> updateEmployee(@RequestBody DeviceRequest request) {
         final RespData<Device> resp = new RespData<Device>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -92,7 +87,6 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/release", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Device> releaseEmployee(@RequestBody DeviceRequest request) {
         final RespData<Device> resp = new RespData<Device>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);

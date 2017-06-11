@@ -21,7 +21,6 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<Employee>> getListEmployee() {
         final RespData<List<Employee>> resp = new RespData<List<Employee>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -35,7 +34,6 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Employee> addEmployee(@RequestBody EmployeeRequest request) {
         final RespData<Employee> resp = new RespData<Employee>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -63,7 +61,6 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Employee> updateEmployee(@RequestBody EmployeeRequest request) {
         final RespData<Employee> resp = new RespData<Employee>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -77,7 +74,6 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/release", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Employee> releaseEmployee(@RequestBody EmployeeRequest request) {
         final RespData<Employee> resp = new RespData<Employee>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);

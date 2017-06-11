@@ -19,7 +19,6 @@ public class CageController {
     private CageService cageService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<Cage>> getListCage() {
         final RespData<List<Cage>> resp = new RespData<List<Cage>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -33,7 +32,6 @@ public class CageController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Cage> addCage(@RequestBody CageRequest request) {
         final RespData<Cage> resp = new RespData<Cage>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -47,7 +45,6 @@ public class CageController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Cage> updateCage(@RequestBody CageRequest request) {
         final RespData<Cage> resp = new RespData<Cage>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -61,7 +58,6 @@ public class CageController {
     }
 
     @RequestMapping(value = "/release", method = RequestMethod.POST)
-    @ResponseBody
     public RespData<Cage> releaseCage(@RequestBody CageRequest request) {
         final RespData<Cage> resp = new RespData<Cage>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -75,7 +71,6 @@ public class CageController {
     }
 
     @RequestMapping(value = "/getById", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<Cage> getCage(@RequestParam(name = "maChuong") Integer maChuong) {
         final RespData<Cage> resp = new RespData<Cage>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
@@ -89,7 +84,6 @@ public class CageController {
     }
 
     @RequestMapping(value = "/getCalendarCleaningToday", method = RequestMethod.GET)
-    @ResponseBody
     public RespData<List<CageLog>> getCleaningToday() {
         final RespData<List<CageLog>> resp = new RespData<List<CageLog>>();
         resp.setResult(CowManagerConstants.COW_MANAGER_SUCCESS);
