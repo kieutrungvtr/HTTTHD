@@ -1,0 +1,150 @@
+{
+	"variables": [],
+	"info": {
+		"name": "CowManager",
+		"_postman_id": "c364ad30-5e4a-9292-05b6-128994beef00",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get List Cage",
+			"request": {
+				"url": "http://localhost:8080/cowmanage/cage/update",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "version",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "apiUsername",
+							"value": "didongviet",
+							"type": "text"
+						},
+						{
+							"key": "data",
+							"value": "{{data}}",
+							"type": "text"
+						},
+						{
+							"key": "checksum",
+							"value": "{{checksum}}",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "register Cage",
+			"request": {
+				"url": "http://localhost:8080/cowmanage/cage/add",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"maChuong\" : 5,\n\t\"viTri\" : \"3 Hoang Van Thu, Phuong 17, Quan Phu Nhuan\",\n\t\"gioiHan\" : 100\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "update Cage",
+			"request": {
+				"url": "http://localhost:8080/cowmanage/cage/update",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"maChuong\": 4758,\n\t\"viTri\" : \"32 Hoang Van Thu, Phuong 17, Quan Phu Nhuan\",\n\t\"gioiHan\" : 100\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "remove Cage",
+			"request": {
+				"url": "http://localhost:8080/cowmanage/cage/release",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"maChuong\": 4758\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get Cage by Id",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8080/cowmanage/cage/getById?maChuong=1703",
+					"protocol": "http",
+					"auth": {},
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cowmanage",
+						"cage",
+						"getById"
+					],
+					"query": [
+						{
+							"key": "maChuong",
+							"value": "1703",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
