@@ -1,0 +1,10 @@
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\obj\Debug\Ds.DataAccess.csprojResolveAssemblyReference.cache
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\bin\Debug\Ds.DataAccess.dll.config
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\bin\Debug\Ds.DataAccess.dll
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\bin\Debug\Ds.DataAccess.pdb
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\bin\Debug\EntityFramework.dll
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\bin\Debug\EntityFramework.xml
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\obj\Debug\Ds.DataAccess.dll
+D:\15HCB2\HK3\HTTTHD\DrinkSmileManagement\Ds.DataAccess\obj\Debug\Ds.DataAccess.pdb
